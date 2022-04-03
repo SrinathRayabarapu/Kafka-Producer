@@ -8,10 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.UUID;
 
 @SpringBootApplication
+//@EnableScheduling
 public class KafkaProducerApplication implements CommandLineRunner {
 
 	@Autowired
-	private HelloWorldKafkaProducer helloWorldKafkaProducer;
+	private MultiplePartitionsKafkaProducer multiplePartitionsKafkaProducer;
 
 	public static void main(String[] args) {
 		SpringApplication.run(KafkaProducerApplication.class, args);
@@ -19,6 +20,12 @@ public class KafkaProducerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		helloWorldKafkaProducer.sendHelloWorld(UUID.randomUUID().toString());
+		int i = 0;
+		while (i < 200){
+			multiplePartitionsKafkaProducer.sendDataToMultiplePartitions("key-"+i%3, UUID.randomUUID().toString());
+			i++;
+			Thread.sleep(2000);
+		}
 	}
+
 }
