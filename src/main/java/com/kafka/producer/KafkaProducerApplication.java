@@ -11,21 +11,21 @@ import java.util.UUID;
 //@EnableScheduling
 public class KafkaProducerApplication implements CommandLineRunner {
 
-	@Autowired
-	private MultiplePartitionsKafkaProducer multiplePartitionsKafkaProducer;
+    @Autowired
+    private MultiplePartitionsKafkaProducer multiplePartitionsKafkaProducer;
 
-	public static void main(String[] args) {
-		SpringApplication.run(KafkaProducerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(KafkaProducerApplication.class, args);
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
-		int i = 0;
-		while (i < 200){
-			multiplePartitionsKafkaProducer.sendDataToMultiplePartitions("key-"+i%3, UUID.randomUUID().toString());
-			i++;
-			Thread.sleep(2000);
-		}
-	}
+    @Override
+    public void run(String... args) throws Exception {
+        int i = 0;
+        while (i < 200) {
+            multiplePartitionsKafkaProducer.sendDataToMultiplePartitions("key-" + i % 3, UUID.randomUUID().toString());
+            i++;
+            Thread.sleep(2000);
+        }
+    }
 
 }
